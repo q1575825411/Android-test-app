@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">test</string>
+    <string name="get">GET</string>
+    <string name="number">随机数</string>
+    <string name="test">测试</string>
+    <string name="off">关</string>
+    <string name="on">开</string>
+    <string name="nfc">判断是否有NFC</string>
+</resources>
