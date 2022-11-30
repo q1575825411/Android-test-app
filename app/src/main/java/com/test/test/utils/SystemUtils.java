@@ -5,6 +5,8 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -92,6 +94,23 @@ public class SystemUtils {
 
         return r.nextInt(255);
 
+    }
+
+    /**
+     * 获取当前系统支持的语言集
+     * @return
+     */
+    public static List<String> getLanguages(){
+        List<String> list=new ArrayList<>();
+        Locale[] lg = Locale.getAvailableLocales();
+        for(Locale language:lg){
+            String name=language.getDisplayLanguage();
+            //去掉重复的语言
+            if (!list.contains(name)){
+                list.add(name);
+            }
+        }
+        return list;
     }
 
 }

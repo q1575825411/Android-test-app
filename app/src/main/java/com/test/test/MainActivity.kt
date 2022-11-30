@@ -17,6 +17,7 @@ import com.test.test.utils.SystemUtils
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
+
     //循环次数
     private var round = 1
     private val TAG = "tianYou_MainActivity"
@@ -56,19 +57,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivityForResult(intent, 200);
                     } else {
-                            // 如果有权限做些什么
+                        // 如果有权限做些什么
 //                            cyclicWrite()
-                            setScreenBrightness(this, SystemUtils.setNumber())
-                            binding.textView.text = getScreenBrightness(this).toString()
+//                            setScreenBrightness(this, SystemUtils.setNumber())
+//                            binding.textView.text = getScreenBrightness(this).toString()
+                        var list: List<String>
+                        list = SystemUtils.getLanguages()
+                        for (i in list.indices) {
+                            Log.i("支持的语言列表", list[i])
+                        }
                     }
                 }
             }
             binding.button2 -> {
-                val intent =  Intent(this, NFCActivity::class.java)
+                val intent = Intent(this, NFCActivity::class.java)
                 startActivity(intent)
             }
             binding.button3 -> {
-                val intent =  Intent(this, InfoActivity::class.java)
+                val intent = Intent(this, VibratorActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -97,7 +103,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Log.e(TAG, e.toString())
         }
     }
-    private fun getScreenBrightness(context: Context):Int {
+
+    private fun getScreenBrightness(context: Context): Int {
         return try {
             Settings.System.getInt(
                 context.contentResolver,
