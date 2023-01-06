@@ -27,6 +27,7 @@ public class VibratorActivity extends AppCompatActivity implements View.OnClickL
         myVibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
         mContext = VibratorActivity.this;
     }
+
     private void bindViews() {
         btn_hasVibrator = (Button) findViewById(R.id.btn_hasVibrator);
         btn_short = (Button) findViewById(R.id.btn_short);

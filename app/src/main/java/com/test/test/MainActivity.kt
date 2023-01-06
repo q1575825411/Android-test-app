@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             binding.button3 -> {
-                val intent = Intent(this, VibratorActivity::class.java)
+                val intent = Intent(this, LocationActivity::class.java)
                 startActivity(intent)
             }
         }
