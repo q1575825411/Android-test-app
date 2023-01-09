@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * @author sm2886
+ */
 public class LocationActivity extends AppCompatActivity{
 
     private static final String TAG = "LocationActivity";
