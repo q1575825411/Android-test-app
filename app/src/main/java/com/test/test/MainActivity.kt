@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.test.test.camera.PictureActivity
 import com.test.test.databinding.ActivityMainBinding
@@ -29,16 +30,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         initClick()
     }
 
-    override fun onDestroy() {
-//        Log.e(TAG, "啊我Destroy了")
-        super.onDestroy()
-    }
-
-    override fun onStop() {
-//        Log.e(TAG, "啊我死了")
-        super.onStop()
-    }
-
     private fun initClick() {
         binding.button.setOnClickListener(this);
         binding.button2.setOnClickListener(this);
@@ -48,25 +39,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0) {
             binding.button -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!Settings.System.canWrite(this)) {
-                        val intent = Intent(
-                            Settings.ACTION_MANAGE_WRITE_SETTINGS,
-                            Uri.parse("package:$packageName")
-                        );
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivityForResult(intent, 200);
-                    } else {
-                        // 如果有权限做些什么
-//                            cyclicWrite()
-//                            setScreenBrightness(this, SystemUtils.setNumber())
-//                            binding.textView.text = getScreenBrightness(this).toString()
-                        var list: List<String>
-                        list = SystemUtils.getLanguages()
-                        for (i in list.indices) {
-                            Log.i("支持的语言列表", list[i])
-                        }
-                    }
+//                checkPermissionTOChangeLight()
+                val list: List<String> = SystemUtils.getLanguages()
+                for (i in list.indices) {
+                    Log.i("支持的语言列表", list[i])
+                    Toast.makeText(this, list[i], Toast.LENGTH_SHORT).show();
                 }
             }
             binding.button2 -> {
@@ -80,9 +57,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun cyclicWrite() {
-        for (i in 0 until round) {
-            setScreenBrightness(this, i)
+
+    /**
+     * @param 循环修改亮度
+     */
+    private fun checkPermissionTOChangeLight() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(this)) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                    Uri.parse("package:$packageName")
+                );
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(intent, 200);
+            } else {
+                // 如果有权限做些什么
+
+                for (i in 0 until round) {
+                    setScreenBrightness(this, i)
+                }
+                setScreenBrightness(this, SystemUtils.setNumber())
+                binding.textView.text = getScreenBrightness(this).toString()
+            }
         }
     }
 
